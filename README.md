@@ -1,1 +1,2 @@
-# qbittorrent_angular_alternative
+# qBittorrent WebUi design
+- Under development.
