@@ -1,0 +1,19 @@
+{
+	"name": "qbittorrent",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start:public": "npm start --prefix clientPublic",
+		"start:private": "npm start --prefix clientPrivate",
+		"build:public": "npm run build --prefix clientPublic -- --configuration=production --output-path=../dist/public",
+		"build:private": "npm run build --prefix clientPrivate -- --configuration=production --output-path=../dist/private",
+		"build:all": "npm run build:public && npm run build:private",
+		"git": "git pull && git add . && git commit -m '-' && git push origin main",
+		"build:git": "npm run build:all && npm run git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

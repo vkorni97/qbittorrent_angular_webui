@@ -1,0 +1,116 @@
+.pageContainer {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	background-image: radial-gradient(
+			circle at 0% 100%,
+			rgba(54, 66, 84, 0.55) 0%,
+			rgba(54, 66, 84, 0.043) 70%,
+			rgba(54, 66, 84, 0) 80%
+		),
+		radial-gradient(
+			circle at 100% 100%,
+			rgba(113, 135, 153, 0.55) 0%,
+			rgba(113, 135, 153, 0.043) 70%,
+			rgba(113, 135, 153, 0) 80%
+		),
+		radial-gradient(
+			circle at 100% 0%,
+			rgba(54, 66, 84, 0.55) 0%,
+			rgba(54, 66, 84, 0.043) 70%,
+			rgba(54, 66, 84, 0) 80%
+		),
+		radial-gradient(
+			circle at 0% 0%,
+			rgba(91, 114, 135, 0.55) 0%,
+			rgba(91, 114, 135, 0.043) 70%,
+			rgba(91, 114, 135, 0) 80%
+		);
+
+	.loginContainer {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		padding: 40px;
+		border-radius: 8px;
+		width: 100%;
+		max-width: 400px;
+		align-items: center;
+		background-color: rgba($color: black, $alpha: .15);
+		backdrop-filter: blur(10px);
+		margin: 5px;
+
+		.logo {
+			margin-top: -80px;
+			height: 120px;
+			width: 120px;
+			background-color: rgb(var(--font1));
+			mask-image: url('../../../assets/images/icons8-qbittorrent.svg');
+			mask-size: 100% 100%;
+		}
+
+		.errorMsg {
+			position: absolute;
+			top: calc(100% + 5px);
+			color: red;
+			font-weight: bold;
+		}
+
+		.body {
+			margin: 30px 0;
+			width: 100%;
+
+			.row {
+				display: flex;
+				align-items: center;
+				margin: 20px 0;
+				color: rgb(var(--font1));
+				background-color: rgba($color: white, $alpha: .1);
+
+				border-radius: 100px;
+				padding: 8px 15px;
+
+				label {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				mat-icon {
+					height: auto;
+					width: auto;
+					cursor: pointer;
+				}
+
+				input {
+					color: inherit;
+					margin-left: 10px;
+					background-color: transparent;
+					flex: 1;
+					border: none;
+					outline: none;
+					font-size: 18px;
+				}
+			}
+		}
+		button {
+			align-self: flex-end;
+			outline: none;
+			background-color: rgb(var(--color1));
+			border: none;
+			color: rgb(var(--font1));
+			padding: 7px 25px;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 17px;
+		}
+
+		img {
+			// margin: 0 auto;
+			width: 100%;
+			max-width: 75px;
+		}
+	}
+}
