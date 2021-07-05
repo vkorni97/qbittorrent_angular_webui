@@ -1,0 +1,32 @@
+.headerContainer {
+	background-color: rgba($color: black, $alpha: .15);
+	backdrop-filter: blur(10px);
+	margin-bottom: 5px;
+	color: rgba(var(--font1), .8);
+
+	.actionsContainer {
+		padding: 10px;
+		display: flex;
+
+		mat-icon {
+			margin: 0 2px;
+			padding: 7px;
+			height: auto;
+			width: auto;
+			cursor: pointer;
+			font-size: 25px;
+			transition: all .15s ease-out;
+			border-radius: 4px;
+
+			&:hover {
+				background-color: rgba($color: white, $alpha: .15);
+			}
+		}
+	}
+}
+
+.verticalLine {
+	margin: 0 10px;
+	width: 1px;
+	background-color: rgba(var(--font1), .15);
+}

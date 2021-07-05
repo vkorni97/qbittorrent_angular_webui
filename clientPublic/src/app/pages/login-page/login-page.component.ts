@@ -30,7 +30,6 @@ export class LoginPageComponent implements OnInit {
 			username: [ '' ],
 			password: [ '' ]
 		});
-		this.errorMsg = 'Invalid username or password';
 	}
 
 	handleSubmit() {

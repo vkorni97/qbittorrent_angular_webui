@@ -96,15 +96,16 @@
 			}
 		}
 		button {
+			display: flex;
 			align-self: flex-end;
 			outline: none;
-			background-color: rgb(var(--color1));
 			border: none;
+			background-color: transparent;
 			color: rgb(var(--font1));
-			padding: 7px 25px;
-			border-radius: 4px;
 			cursor: pointer;
 			font-size: 17px;
+			align-items: center;
+			justify-content: center;
 		}
 
 		img {
