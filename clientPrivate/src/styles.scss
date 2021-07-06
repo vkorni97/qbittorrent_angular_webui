@@ -20,7 +20,7 @@ $clientPrivate-warn: mat.define-palette(mat.$red-palette);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $clientPrivate-theme: mat.define-light-theme(
-	(color: (primary: $clientPrivate-primary, accent: $clientPrivate-accent, warn: $clientPrivate-warn))
+	 (color: (primary: $clientPrivate-primary, accent: $clientPrivate-accent, warn: $clientPrivate-warn))
 );
 
 // Include theme styles for core and each component used in your app.
@@ -52,4 +52,5 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	margin: 0;
 	background-color: rgb(var(--bg1));
+	color: rgba(var(--font1), .8);
 }

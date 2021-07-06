@@ -1,0 +1,13 @@
+.itemContainer {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	padding: 3px 10px;
+	margin: 2px 0;
+
+	mat-icon {
+		height: auto;
+		width: auto;
+		margin-right: 10px;
+	}
+}

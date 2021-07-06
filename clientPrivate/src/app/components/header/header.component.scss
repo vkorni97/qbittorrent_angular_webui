@@ -1,10 +1,14 @@
-.headerContainer {
-	background-color: rgba($color: black, $alpha: .15);
-	backdrop-filter: blur(10px);
-	margin-bottom: 5px;
-	color: rgba(var(--font1), .8);
+@import '../../../assets/variables';
 
-	.actionsContainer {
+.headerContainer {
+	@include backgroundBlur;
+	display: flex;
+	justify-content: space-between;
+	border-radius: 8px;
+	margin: 4px;
+
+	.actionsContainer,
+	.routeContainer {
 		padding: 10px;
 		display: flex;
 
@@ -17,6 +21,10 @@
 			font-size: 25px;
 			transition: all .15s ease-out;
 			border-radius: 4px;
+
+			&.active {
+				color: rgba(var(--color1), 1);
+			}
 
 			&:hover {
 				background-color: rgba($color: white, $alpha: .15);

@@ -10,4 +10,14 @@
     <div class="verticalLine"></div>
     <mat-icon>settings</mat-icon>
   </div>
+  <div class="routeContainer">
+    <mat-icon title="Dwonloads" [routerLink]="['']" [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}">
+      file_download
+    </mat-icon>
+    <mat-icon title="RSS feed" [routerLink]="['rss']" [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: false}">
+      rss_feed
+    </mat-icon>
+  </div>
 </div>

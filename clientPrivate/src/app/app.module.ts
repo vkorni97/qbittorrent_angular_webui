@@ -9,9 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RssPageComponent } from './pages/rss-page/rss-page.component';
+import { CollapseMenuComponent } from './components/collapse-menu/collapse-menu.component';
+import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-item.component';
 
 @NgModule({
-	declarations: [ AppComponent, HomePageComponent, HeaderComponent, RssPageComponent ],
+	declarations: [ AppComponent, HomePageComponent, HeaderComponent, RssPageComponent, CollapseMenuComponent, MenuItemComponent ],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,

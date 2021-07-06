@@ -1,0 +1,15 @@
+@import '../../../assets/variables';
+
+.pageContainer {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	color: rgba(var(--font1), .8);
+
+	.filterPanel {
+		@include backgroundBlur;
+		width: 300px;
+		border-radius: 8px;
+		margin: 4px;
+	}
+}

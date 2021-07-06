@@ -1,1 +1,6 @@
-$colors: (bg1: '63, 66, 69', bg2: '244,245,252', color1: '0, 102, 153', font1: '192,195,198');
+$colors: (bg1: '63, 66, 69', bg2: '244,245,252', color1: '0, 204, 204', font1: '192,195,198');
+
+@mixin backgroundBlur {
+	background-color: rgba($color: black, $alpha: .15);
+	backdrop-filter: blur(10px);
+}
