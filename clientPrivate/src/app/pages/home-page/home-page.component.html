@@ -1,20 +1,35 @@
 <div class="pageContainer">
   <div class="filterPanel">
-    <app-collapse-menu [title]="'FILTER'">
-      <app-menu-item [icon]="'select_all'" [text]="'All'"></app-menu-item>
-      <app-menu-item [icon]="'downloading'" [text]="'Dwonloading'"></app-menu-item>
-      <app-menu-item [icon]="'done_all'" [text]="'Complete'"></app-menu-item>
-      <app-menu-item [icon]="'stop'" [text]="'Stopped'"></app-menu-item>
-      <app-menu-item [icon]="'import_export'" [text]="'Active'"></app-menu-item>
-      <app-menu-item [icon]="'mobiledata_off'" [text]="'Inactive'"></app-menu-item>
+    <app-collapse-menu [title]="'BY STATUS'">
+      <app-menu-item (click)="handleStatusSelect('all')" [selected]="selectedStatus == 'all'" [icon]="'select_all'"
+        [text]="'All'">{{status['all'].length}}
+      </app-menu-item>
+      <app-menu-item (click)="handleStatusSelect('downloading')" [selected]="selectedStatus == 'downloading'"
+        [icon]="'downloading'" [text]="'Downloading'">
+        {{status['downloading'].length}}</app-menu-item>
+      <app-menu-item (click)="handleStatusSelect('complete')" [selected]="selectedStatus == 'complete'"
+        [icon]="'done_all'" [text]="'Complete'">
+        {{status['complete'].length}}</app-menu-item>
+      <app-menu-item (click)="handleStatusSelect('stopped')" [selected]="selectedStatus == 'stopped'" [icon]="'stop'"
+        [text]="'Stopped'">
+        {{status['stopped'].length}}</app-menu-item>
+      <app-menu-item (click)="handleStatusSelect('active')" [selected]="selectedStatus == 'active'"
+        [icon]="'import_export'" [text]="'Active'">
+        {{status['active'].length}}</app-menu-item>
+      <app-menu-item (click)="handleStatusSelect('inactive')" [selected]="selectedStatus == 'inactive'"
+        [icon]="'mobiledata_off'" [text]="'Inactive'">
+        {{status['inactive'].length}}</app-menu-item>
     </app-collapse-menu>
-    <app-collapse-menu [title]="'FILTER'">
-      <app-menu-item [icon]="'select_all'" [text]="'All'"></app-menu-item>
-      <app-menu-item [icon]="'downloading'" [text]="'Dwonloading'"></app-menu-item>
-      <app-menu-item [icon]="'done_all'" [text]="'Complete'"></app-menu-item>
-      <app-menu-item [icon]="'stop'" [text]="'Stopped'"></app-menu-item>
-      <app-menu-item [icon]="'import_export'" [text]="'Active'"></app-menu-item>
-      <app-menu-item [icon]="'mobiledata_off'" [text]="'Inactive'"></app-menu-item>
+    <app-collapse-menu [title]="'BY TAG'">
+      <app-menu-item (click)="handleTagSelect('all')" [selected]="selectedTag == 'all'" [text]="'All'">
+        {{tag['all'].length}}</app-menu-item>
+      <app-menu-item (click)="handleTagSelect('untagged')" [selected]="selectedTag == 'untagged'" [text]="'Untagged'">
+        {{tag['untagged'].length}}
+      </app-menu-item>
+    </app-collapse-menu>
+    <app-collapse-menu [title]="'BY TRACKER'">
+      <app-menu-item (click)="handleTrackerSelect('all')" [selected]="selectedTag == 'all'" [text]="'All'">
+        {{tracker['all'].length}}</app-menu-item>
     </app-collapse-menu>
   </div>
   <div class="downloadPanel">

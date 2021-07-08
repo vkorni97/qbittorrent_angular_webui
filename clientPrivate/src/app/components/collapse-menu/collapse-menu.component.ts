@@ -1,4 +1,4 @@
-import { animate, keyframes, query, stagger, style, transition, trigger } from '@angular/animations';
+import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 	templateUrl: './collapse-menu.component.html',
 	styleUrls: [ './collapse-menu.component.scss' ],
 	animations: [
+		trigger('preventAnimation', [ transition(':enter', []) ]),
 		trigger('animateItems', [
 			transition(':enter', [
 				style({ opacity: 0, paddingLeft: 0, paddingRight: 0, height: 0 }),
@@ -19,10 +20,10 @@ import { Component, Input, OnInit } from '@angular/core';
 			]),
 			transition(':leave', [
 				animate(
-					'.5s ease-out',
+					'.5s ease-in',
 					keyframes([
 						style({ opacity: 0, paddingLeft: 0, paddingRight: 0, offset: 0.25 }),
-						style({ height: 0, offset: 1 })
+						style({ height: 0, paddingTop: 0, paddingBottom: 0, offset: 1 })
 					])
 				)
 			])

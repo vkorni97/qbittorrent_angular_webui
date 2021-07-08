@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,11 +14,19 @@ import { CollapseMenuComponent } from './components/collapse-menu/collapse-menu.
 import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-item.component';
 
 @NgModule({
-	declarations: [ AppComponent, HomePageComponent, HeaderComponent, RssPageComponent, CollapseMenuComponent, MenuItemComponent ],
+	declarations: [
+		AppComponent,
+		HomePageComponent,
+		HeaderComponent,
+		RssPageComponent,
+		CollapseMenuComponent,
+		MenuItemComponent
+	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		ReactiveFormsModule,
 		FormsModule,
 		MatIconModule

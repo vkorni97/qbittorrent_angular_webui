@@ -2,12 +2,37 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	padding: 3px 10px;
-	margin: 2px 0;
+	padding: 10px 10px;
+	border-radius: 4px;
+	transition: color .25s ease-out;
+	// justify-content: space-between;
+
+	&.selected {
+		color: rgba($color: var(--color1), $alpha: 1.0);
+	}
+
+	.text {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.badge {
+		margin-left: 10px;
+		padding: 0px 10px;
+		border-radius: 50px;
+		font-weight: bold;
+		font-size: 14px;
+		background-color: rgba($color: var(--color1), $alpha: .4);
+	}
 
 	mat-icon {
 		height: auto;
 		width: auto;
 		margin-right: 10px;
+	}
+
+	&:hover {
+		background-color: rgba($color: black, $alpha: .25);
 	}
 }

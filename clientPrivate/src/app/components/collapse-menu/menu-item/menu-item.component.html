@@ -1,6 +1,8 @@
-<div class="itemContainer">
-  <mat-icon>{{icon}}</mat-icon>
-  <div class="text">{{text}}</div>
+<div class="itemContainer" [ngClass]="{'selected': selected}">
+  <div class="text">
+    <mat-icon>{{icon}}</mat-icon>
+    <div class="text">{{text}}</div>
+  </div>
   <div class="badge">
     <ng-content></ng-content>
   </div>

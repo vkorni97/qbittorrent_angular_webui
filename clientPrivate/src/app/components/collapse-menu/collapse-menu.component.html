@@ -1,5 +1,5 @@
-<div class="collapseContainer">
-  <div class="titleContainer" (click)="handleCollapse()">
+<div class="collapseContainer" [@preventAnimation]>
+  <div class="titleContainer" [ngClass]="{'collapsed': isCollapsed}" (click)="handleCollapse()">
     <mat-icon>expand_more</mat-icon>
     <div class="title">{{title}}</div>
   </div>

@@ -10,7 +10,14 @@
 		align-items: center;
 		font-weight: bold;
 
+		&.collapsed {
+			mat-icon {
+				transform: rotate(-90deg);
+			}
+		}
+
 		mat-icon {
+			transition: transform .5s ease-out;
 			height: auto;
 			width: auto;
 			font-size: 20px;
