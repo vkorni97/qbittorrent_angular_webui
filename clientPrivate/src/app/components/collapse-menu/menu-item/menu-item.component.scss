@@ -11,10 +11,17 @@
 		color: rgba($color: var(--color1), $alpha: 1.0);
 	}
 
-	.text {
+	.textContainer {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		overflow: hidden;
+
+		.text {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
 	}
 
 	.badge {

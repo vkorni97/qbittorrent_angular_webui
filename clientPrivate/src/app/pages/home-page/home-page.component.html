@@ -1,38 +1,51 @@
 <div class="pageContainer">
   <div class="filterPanel">
+    <div class="chartContainer">
+      <apx-chart [annotations]="chartOptions.annotations" [grid]="chartOptions.grid" [tooltip]="chartOptions.tooltip"
+        [dataLabels]="chartOptions.dataLabels" [stroke]="chartOptions.stroke" [fill]="chartOptions.fill"
+        [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis" [title]="chartOptions.title">
+      </apx-chart>
+    </div>
     <app-collapse-menu [title]="'BY STATUS'">
       <app-menu-item (click)="handleStatusSelect('all')" [selected]="selectedStatus == 'all'" [icon]="'select_all'"
-        [text]="'All'">{{status['all'].length}}
+        [text]="'All'">{{torrents.length}}
       </app-menu-item>
       <app-menu-item (click)="handleStatusSelect('downloading')" [selected]="selectedStatus == 'downloading'"
         [icon]="'downloading'" [text]="'Downloading'">
-        {{status['downloading'].length}}</app-menu-item>
+        {{torrents.status['downloading'].length}}</app-menu-item>
       <app-menu-item (click)="handleStatusSelect('complete')" [selected]="selectedStatus == 'complete'"
         [icon]="'done_all'" [text]="'Complete'">
-        {{status['complete'].length}}</app-menu-item>
+        {{torrents.status['complete'].length}}</app-menu-item>
       <app-menu-item (click)="handleStatusSelect('stopped')" [selected]="selectedStatus == 'stopped'" [icon]="'stop'"
         [text]="'Stopped'">
-        {{status['stopped'].length}}</app-menu-item>
+        {{torrents.status['stopped'].length}}</app-menu-item>
       <app-menu-item (click)="handleStatusSelect('active')" [selected]="selectedStatus == 'active'"
         [icon]="'import_export'" [text]="'Active'">
-        {{status['active'].length}}</app-menu-item>
+        {{torrents.status['active'].length}}</app-menu-item>
       <app-menu-item (click)="handleStatusSelect('inactive')" [selected]="selectedStatus == 'inactive'"
         [icon]="'mobiledata_off'" [text]="'Inactive'">
-        {{status['inactive'].length}}</app-menu-item>
+        {{torrents.status['inactive'].length}}</app-menu-item>
     </app-collapse-menu>
     <app-collapse-menu [title]="'BY TAG'">
       <app-menu-item (click)="handleTagSelect('all')" [selected]="selectedTag == 'all'" [text]="'All'">
-        {{tag['all'].length}}</app-menu-item>
-      <app-menu-item (click)="handleTagSelect('untagged')" [selected]="selectedTag == 'untagged'" [text]="'Untagged'">
-        {{tag['untagged'].length}}
+        {{torrents.length}}</app-menu-item>
+      <app-menu-item *ngFor="let item of torrents.tag" (click)="handleTagSelect(item)" [selected]="selectedTag == item"
+        [text]="item">
+
       </app-menu-item>
     </app-collapse-menu>
     <app-collapse-menu [title]="'BY TRACKER'">
-      <app-menu-item (click)="handleTrackerSelect('all')" [selected]="selectedTag == 'all'" [text]="'All'">
-        {{tracker['all'].length}}</app-menu-item>
+      <app-menu-item (click)="handleTrackerSelect('all')" [selected]="selectedTracker == 'all'" [text]="'All'">
+        {{torrents.length}}</app-menu-item>
+      <app-menu-item *ngFor="let item of torrents.tracker|keyvalue" (click)="handleTrackerSelect(item.key)"
+        [selected]="selectedTracker == item.key" [text]="item.key">
+        {{item.value.length}}
+      </app-menu-item>
     </app-collapse-menu>
   </div>
   <div class="downloadPanel">
-
+    {{torrents.downloadSpeed|convertSpeed}}
+    {{torrents.uploadSpeed|convertSpeed}}
   </div>
 </div>

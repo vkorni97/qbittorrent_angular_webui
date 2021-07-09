@@ -1,3 +1,23 @@
+import {
+	ApexChart,
+	ApexAnnotations,
+	ApexDataLabels,
+	ApexAxisChartSeries,
+	ApexNonAxisChartSeries,
+	ApexStroke,
+	ApexLegend,
+	ApexFill,
+	ApexTooltip,
+	ApexPlotOptions,
+	ApexResponsive,
+	ApexXAxis,
+	ApexYAxis,
+	ApexGrid,
+	ApexStates,
+	ApexTitleSubtitle,
+	ApexTheme
+} from 'ng-apexcharts';
+
 export interface ServerState {
 	alltime_dl: number;
 	alltime_ul: number;
@@ -74,7 +94,6 @@ export interface TorrentInfo {
 }
 
 export interface Status {
-	all: string[];
 	downloading: string[];
 	complete: string[];
 	stopped: string[];
@@ -82,13 +101,8 @@ export interface Status {
 	inactive: string[];
 	[key: string]: string[];
 }
-export interface Tag {
-	all: string[];
-	untagged: string[];
-	[key: string]: string[];
-}
+
 export interface Tracker {
-	all: string[];
 	[key: string]: string[];
 }
 
@@ -112,4 +126,26 @@ export enum States {
 	STALLED_UPLOAD = 'stalledUP',
 	UNKNOWN = 'unknown',
 	UPLOADING = 'uploading'
+}
+
+export interface ChartOptions {
+	chart: ApexChart;
+	annotations: ApexAnnotations;
+	colors: string[];
+	dataLabels: ApexDataLabels;
+	series: ApexAxisChartSeries | ApexNonAxisChartSeries;
+	stroke: ApexStroke;
+	labels: string[];
+	legend: ApexLegend;
+	fill: ApexFill;
+	tooltip: ApexTooltip;
+	plotOptions: ApexPlotOptions;
+	responsive: ApexResponsive[];
+	xaxis: ApexXAxis;
+	yaxis: ApexYAxis | ApexYAxis[];
+	grid: ApexGrid;
+	states: ApexStates;
+	title: ApexTitleSubtitle;
+	subtitle: ApexTitleSubtitle;
+	theme: ApexTheme;
 }

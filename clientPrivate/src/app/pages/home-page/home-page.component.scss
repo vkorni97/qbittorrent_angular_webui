@@ -3,13 +3,20 @@
 .pageContainer {
 	display: flex;
 	flex-direction: row;
-	height: 100%;
 	color: rgba(var(--font1), .8);
+	height: 100%;
+	max-height: calc(100vh - 54px);
 
 	.filterPanel {
 		@include backgroundBlur;
+		display: block;
 		width: 300px;
 		border-radius: 8px;
 		margin: 5px;
+		overflow-y: auto;
+	}
+
+	.downloadPanel {
+		flex: 1;
 	}
 }

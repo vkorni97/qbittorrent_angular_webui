@@ -1,7 +1,7 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { States, Status, Tag, TorrentInfo, Tracker } from 'src/app/interfaces/data';
+import { ChartOptions } from 'src/app/interfaces/data';
 import { MainDataRes } from 'src/app/interfaces/http';
+import { Torrents } from 'src/app/modules/torrents.module';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -13,27 +13,60 @@ export class HomePageComponent implements OnInit, OnDestroy {
 	private syncMainDataLastResponseId: number = 0;
 	private timeout: any;
 
-	public torrents: { [key: string]: TorrentInfo } = {};
+	public torrents: Torrents = new Torrents();
 
 	public selectedStatus: string = 'all';
-	public status: Status = {
-		all: [],
-		downloading: [],
-		complete: [],
-		stopped: [],
-		active: [],
-		inactive: []
-	};
 	public selectedTag: string = 'all';
-	public tag: Tag = { all: [], untagged: [] };
 	public selectedTracker: string = 'all';
-	public tracker: Tracker = { all: [] };
+
+	public chartOptions: ChartOptions = {
+		annotations: {},
+		chart: {
+			height: 200,
+			type: 'area',
+			toolbar: { show: false },
+			selection: { enabled: false }
+		},
+		colors: [],
+		dataLabels: { enabled: false },
+		labels: [],
+		legend: {},
+		fill: {
+			type: 'gradient',
+			gradient: {
+				shadeIntensity: 0,
+				opacityFrom: 0.8,
+				opacityTo: 0,
+				stops: [ 0, 100 ]
+			}
+		},
+		tooltip: { enabled: false },
+		plotOptions: {},
+		responsive: [],
+		states: {},
+		subtitle: {},
+		theme: {},
+		grid: { borderColor: 'transparent' },
+		stroke: { curve: 'smooth' },
+		series: [
+			{
+				name: 'asd',
+				data: [ 10, 41, 35, 51, 49, 62, 69, 91, 148 ]
+			}
+		],
+		title: {},
+		xaxis: {
+			labels: { show: false },
+			axisBorder: { show: false },
+			axisTicks: { show: false },
+			categories: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep' ]
+		},
+		yaxis: { labels: { show: false } }
+	};
 
 	constructor(private http: HttpService) {}
 
-	ngOnInit(): void {
-		this.callMainData();
-	}
+	ngOnInit(): void {}
 
 	ngOnDestroy(): void {
 		if (this.timeout) clearTimeout(this.timeout);
@@ -45,27 +78,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
 			.then((res) => {
 				if (res && res.body) {
 					let { body } = res;
-					if (body.full_update) {
-						if (body.torrents) {
-							for (const key in body.torrents) {
-								this.torrents[key] = body.torrents[key];
-								this.setFilters(body.torrents[key].state, key);
-							}
-						}
-					} else {
-						for (const key in body.torrents) {
-							if (!this.torrents[key]) {
-								this.torrents[key] = body.torrents[key];
-								this.setFilters(body.torrents[key].state, key);
-							} else {
-								if (body.torrents[key].state) {
-									this.setFilters(this.torrents[key].state, key, true);
-									this.setFilters(body.torrents[key].state, key);
-								}
-								Object.assign(this.torrents[key], body.torrents[key]);
-							}
-						}
-					}
+					if (body.torrents) this.torrents.modifyTorrent(body.torrents);
+					if (body.torrents_removed) this.torrents.removeTorrent(body.torrents_removed);
+					if (body.trackers) this.torrents.addToMenu(body.trackers, 'tracker');
+					if (body.trackers_removed) this.torrents.removeFromMenu(body.trackers_removed, 'tracker');
+					if (body.tags) this.torrents.addToMenu(body.tags, 'tag');
+					if (body.tags_removed) this.torrents.removeFromMenu(body.tags_removed, 'tag');
+
 					this.syncMainDataLastResponseId = body.rid;
 
 					//this.callMainData();
@@ -76,78 +95,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	setFilters(state: string, key: string, remove: boolean = false) {
-		if (remove) {
-			for (const name in this.status) {
-				this.status[name] = this.status[name].filter((v) => v != key);
-			}
-			for (const name in this.tag) {
-				this.tag[name] = this.tag[name].filter((v) => v != key);
-			}
-			for (const name in this.tracker) {
-				this.tracker[name] = this.tracker[name].filter((v) => v != key);
-			}
-		} else {
-			this.status['all'].push(key);
-			this.tag['all'].push(key);
-			this.tracker['all'].push(key);
-
-			switch (state) {
-				case States.DOWNLOADING:
-				case States.FORCED_DOWNLOAD:
-					this.status['downloading'].push(key);
-					break;
-				default:
-					break;
-			}
-
-			switch (state) {
-				case States.UPLOADING:
-				case States.FORCED_UPLOAD:
-				case States.PAUSED_UPLOAD:
-				case States.QUEUED_UPLOAD:
-				case States.STALLED_UPLOAD:
-				case States.CHECKING_UPLOAD:
-					this.status['complete'].push(key);
-					break;
-				default:
-					break;
-			}
-
-			switch (state) {
-				case States.PAUSED_DOWNLOAD:
-				case States.PAUSED_UPLOAD:
-					this.status['stopped'].push(key);
-					break;
-				default:
-					break;
-			}
-
-			switch (state) {
-				case States.DOWNLOADING:
-				case States.FORCED_DOWNLOAD:
-				case States.UPLOADING:
-				case States.FORCED_UPLOAD:
-					this.status['active'].push(key);
-					break;
-				default:
-					break;
-			}
-
-			switch (state) {
-				case States.PAUSED_DOWNLOAD:
-				case States.PAUSED_UPLOAD:
-				case States.STALLED_DOWNLOAD:
-				case States.STALLED_UPLOAD:
-				case States.MISSING_FILES:
-				case States.ERROR:
-					this.status['inactive'].push(key);
-					break;
-				default:
-					break;
-			}
-		}
-	}
+	removeFilter(oldState: string, newState: string, key: string) {}
 
 	handleStatusSelect(key: string) {
 		this.selectedStatus = key;
@@ -158,6 +106,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 	}
 
 	handleTrackerSelect(key: string) {
+		console.log(key);
 		this.selectedTracker = key;
 	}
 }

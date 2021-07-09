@@ -12,6 +12,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { RssPageComponent } from './pages/rss-page/rss-page.component';
 import { CollapseMenuComponent } from './components/collapse-menu/collapse-menu.component';
 import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-item.component';
+import { CountTagPipe } from './pipes/count-tag.pipe';
+import { ConvertSpeedPipe } from './pipes/convert-speed.pipe';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
 	declarations: [
@@ -20,7 +23,9 @@ import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-ite
 		HeaderComponent,
 		RssPageComponent,
 		CollapseMenuComponent,
-		MenuItemComponent
+		MenuItemComponent,
+		CountTagPipe,
+		ConvertSpeedPipe
 	],
 	imports: [
 		BrowserModule,
@@ -29,7 +34,8 @@ import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-ite
 		HttpClientModule,
 		ReactiveFormsModule,
 		FormsModule,
-		MatIconModule
+		MatIconModule,
+		NgApexchartsModule
 	],
 	providers: [],
 	bootstrap: [ AppComponent ]
