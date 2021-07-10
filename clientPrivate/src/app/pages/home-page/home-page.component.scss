@@ -10,10 +10,72 @@
 	.filterPanel {
 		@include backgroundBlur;
 		display: block;
-		width: 300px;
+		width: 320px;
 		border-radius: 8px;
 		margin: 5px;
 		overflow-y: auto;
+
+		.speedContainer {
+			display: flex;
+
+			.download {
+				color: rgb(var(--color1));
+			}
+			.upload {
+				color: rgb(var(--color2));
+			}
+
+			.download,
+			.upload {
+				padding: 10px;
+				padding-bottom: 0;
+				flex: 1;
+				display: flex;
+				font-weight: bold;
+
+				mat-icon {
+					margin-top: 10px;
+					height: auto;
+					width: auto;
+					font-size: 30px;
+					transform: scaleX(.7);
+					opacity: .7;
+				}
+
+				.speed {
+					::ng-deep .number {
+						font-size: 30px;
+					}
+
+					::ng-deep .unit {
+						font-size: 20px;
+						margin-left: 5px;
+						opacity: .7;
+					}
+				}
+
+				.transferred {
+					margin-top: -7px;
+
+					::ng-deep .number {
+						font-style: italic;
+						font-size: 15px;
+					}
+
+					::ng-deep .unit {
+						font-size: 13px;
+						margin-left: 5px;
+						opacity: .7;
+					}
+				}
+
+				.speed,
+				.transferred {
+					display: flex;
+					align-items: flex-end;
+				}
+			}
+		}
 	}
 
 	.downloadPanel {

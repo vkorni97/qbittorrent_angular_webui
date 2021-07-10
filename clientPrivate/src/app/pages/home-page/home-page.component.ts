@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
+import { ServerState } from 'src/app/interfaces/data';
 import { MainDataRes } from 'src/app/interfaces/http';
 import { Torrents } from 'src/app/modules/torrents.module';
 import { HttpService } from 'src/app/services/http.service';
-import { chartOptions } from '../../_helper/config';
+import { chartOptions } from '../../_helper/chartConfig';
 
 @Component({
 	selector: 'app-home-page',
@@ -15,6 +16,7 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 	private timeout: any;
 
 	public torrents: Torrents = new Torrents();
+	public server_state: ServerState = {};
 
 	public selectedStatus: string = 'all';
 	public selectedTag: string = 'all';
@@ -34,16 +36,18 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 		let data2: number[] = new Array(10).fill(0);
 
 		setInterval(() => {
-			data1.push(this.torrents.uploadSpeed);
-			data2.push(this.torrents.downloadSpeed);
+			data1.push(this.server_state.up_info_speed || 0);
+			data2.push(this.server_state.dl_info_speed || 0);
 			this.chart.updateSeries([
 				{
 					name: 'Download',
-					data: data2
+					data: data2,
+					color: '#00CCCC'
 				},
 				{
 					name: 'Upload',
-					data: data1
+					data: data1,
+					color: '#39CE83'
 				}
 			]);
 		}, 1000);
@@ -59,6 +63,7 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 			.then((res) => {
 				if (res && res.body) {
 					let { body } = res;
+					if (body.server_state) Object.assign(this.server_state, body.server_state);
 					if (body.torrents) this.torrents.modifyTorrent(body.torrents);
 					if (body.torrents_removed) this.torrents.removeTorrent(body.torrents_removed);
 					if (body.trackers) this.torrents.addToMenu(body.trackers, 'tracker');

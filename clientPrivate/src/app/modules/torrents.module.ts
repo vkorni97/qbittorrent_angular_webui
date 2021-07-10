@@ -3,8 +3,6 @@ import { States, Status, TorrentInfo, Tracker } from '../interfaces/data';
 export class Torrents {
 	private torrents: { [key: string]: TorrentInfo } = {};
 	private torrentsLength: number = 0;
-	private uploadSum: number = 0;
-	private downloadSum: number = 0;
 
 	public status: Status = {
 		downloading: [],
@@ -24,16 +22,8 @@ export class Torrents {
 	get length(): number {
 		return this.torrentsLength;
 	}
-	get uploadSpeed(): number {
-		return this.uploadSum;
-	}
-	get downloadSpeed(): number {
-		return this.downloadSum;
-	}
 
 	modifyTorrent(torrents?: { [key: string]: TorrentInfo }) {
-		let downloadSum: number = 0;
-		let uploadSum: number = 0;
 		for (const key in torrents) {
 			if (!this.torrents[key]) {
 				this.torrents[key] = torrents[key];
@@ -46,11 +36,7 @@ export class Torrents {
 				}
 				Object.assign(this.torrents[key], torrents[key]);
 			}
-			uploadSum += torrents[key].upspeed || 0;
-			downloadSum += torrents[key].dlspeed || 0;
 		}
-		this.uploadSum = uploadSum;
-		this.downloadSum = downloadSum;
 	}
 
 	removeTorrent(torrents: string[]) {

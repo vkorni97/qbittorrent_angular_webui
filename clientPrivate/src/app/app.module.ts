@@ -13,7 +13,7 @@ import { RssPageComponent } from './pages/rss-page/rss-page.component';
 import { CollapseMenuComponent } from './components/collapse-menu/collapse-menu.component';
 import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-item.component';
 import { CountTagPipe } from './pipes/count-tag.pipe';
-import { ConvertSpeedPipe } from './pipes/convert-speed.pipe';
+import { ConvertUnitPipe } from './pipes/convert-unit.pipe';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
@@ -25,7 +25,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 		CollapseMenuComponent,
 		MenuItemComponent,
 		CountTagPipe,
-		ConvertSpeedPipe
+		ConvertUnitPipe
 	],
 	imports: [
 		BrowserModule,

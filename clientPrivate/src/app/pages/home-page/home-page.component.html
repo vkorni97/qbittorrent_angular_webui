@@ -1,5 +1,21 @@
 <div class="pageContainer">
   <div class="filterPanel">
+    <div class="speedContainer">
+      <div class="download">
+        <mat-icon>south</mat-icon>
+        <div class="transferContainer">
+          <div class="speed" [innerHtml]="server_state.dl_info_speed|convertUnit:true"></div>
+          <div class="transferred" [innerHtml]="server_state.dl_info_data|convertUnit"></div>
+        </div>
+      </div>
+      <div class="upload">
+        <mat-icon>north</mat-icon>
+        <div class="transfer">
+          <div class="speed" [innerHtml]="server_state.up_info_speed|convertUnit:true"></div>
+          <div class="transferred" [innerHtml]="server_state.up_info_data|convertUnit"></div>
+        </div>
+      </div>
+    </div>
     <div class="chartContainer">
       <apx-chart #chart [annotations]="chartOptions.annotations" [grid]="chartOptions.grid"
         [tooltip]="chartOptions.tooltip" [dataLabels]="chartOptions.dataLabels" [stroke]="chartOptions.stroke"
@@ -46,7 +62,5 @@
     </app-collapse-menu>
   </div>
   <div class="downloadPanel">
-    {{torrents.downloadSpeed|convertSpeed}}
-    {{torrents.uploadSpeed|convertSpeed}}
   </div>
 </div>
