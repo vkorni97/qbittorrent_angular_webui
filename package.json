@@ -11,7 +11,7 @@
 		"build:private": "npm run build --prefix clientPrivate -- --configuration=production --output-path=../dist/private",
 		"build:all": "npm run build:public && npm run build:private",
 		"git": "git pull && git add . && git commit -m '-' && git push origin main",
-		"build:git": "npm run build:all && npm run git"
+		"build:git": "npm run build:private && npm run git"
 	},
 	"keywords": [],
 	"author": "",

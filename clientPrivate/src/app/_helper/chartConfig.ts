@@ -42,7 +42,7 @@ export let chartOptions: ChartOptions = {
 		show: false,
 		padding: {
 			right: -10,
-			left: -10,
+			left: -15,
 			top: -10,
 			bottom: -10
 		}
@@ -51,10 +51,21 @@ export let chartOptions: ChartOptions = {
 	series: [],
 	title: {},
 	xaxis: {
-		range: 10,
+		range: 20,
 		labels: { show: false },
 		axisBorder: { show: false },
 		axisTicks: { show: false }
+		// logarithmic: true
 	},
-	yaxis: { labels: { show: false } }
+	yaxis: [
+		{
+			seriesName: 'Download',
+			labels: { show: false }
+			// logarithmic: true
+		},
+		{
+			seriesName: 'Upload',
+			labels: { show: false }
+		}
+	]
 };

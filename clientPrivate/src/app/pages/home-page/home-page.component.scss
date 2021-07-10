@@ -10,7 +10,7 @@
 	.filterPanel {
 		@include backgroundBlur;
 		display: block;
-		width: 320px;
+		width: 350px;
 		border-radius: 8px;
 		margin: 5px;
 		overflow-y: auto;
@@ -19,10 +19,11 @@
 			display: flex;
 
 			.download {
-				color: rgb(var(--color1));
+				color: rgb(var(--color2));
+				flex-direction: row-reverse;
 			}
 			.upload {
-				color: rgb(var(--color2));
+				color: rgb(var(--color1));
 			}
 
 			.download,
@@ -32,6 +33,7 @@
 				flex: 1;
 				display: flex;
 				font-weight: bold;
+				user-select: none;
 
 				mat-icon {
 					margin-top: 10px;
@@ -44,7 +46,7 @@
 
 				.speed {
 					::ng-deep .number {
-						font-size: 30px;
+						font-size: 32px;
 					}
 
 					::ng-deep .unit {
@@ -59,11 +61,11 @@
 
 					::ng-deep .number {
 						font-style: italic;
-						font-size: 15px;
+						font-size: 18px;
 					}
 
 					::ng-deep .unit {
-						font-size: 13px;
+						font-size: 12px;
 						margin-left: 5px;
 						opacity: .7;
 					}

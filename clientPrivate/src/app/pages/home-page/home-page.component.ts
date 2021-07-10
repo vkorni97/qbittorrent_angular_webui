@@ -13,14 +13,16 @@ import { chartOptions } from '../../_helper/chartConfig';
 })
 export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 	private syncMainDataLastResponseId: number = 0;
-	private timeout: any;
+	private mainTimer: any;
+	private graphTimer: any;
 
 	public torrents: Torrents = new Torrents();
 	public server_state: ServerState = {};
 
-	public selectedStatus: string = 'all';
-	public selectedTag: string = 'all';
-	public selectedTracker: string = 'all';
+	public Status: string = 'all';
+	public Tag: string = 'all';
+	public Tracker: string = 'all';
+	public Category: string = 'all';
 
 	@ViewChild('chart') chart: ChartComponent;
 	public chartOptions = chartOptions;
@@ -32,29 +34,30 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		let data1: number[] = new Array(10).fill(0);
-		let data2: number[] = new Array(10).fill(0);
+		let data1: number[] = new Array();
+		let data2: number[] = new Array();
 
-		setInterval(() => {
+		this.graphTimer = setInterval(() => {
 			data1.push(this.server_state.up_info_speed || 0);
 			data2.push(this.server_state.dl_info_speed || 0);
 			this.chart.updateSeries([
 				{
 					name: 'Download',
 					data: data2,
-					color: '#00CCCC'
+					color: '#39CE83'
 				},
 				{
 					name: 'Upload',
 					data: data1,
-					color: '#39CE83'
+					color: '#00CCCC'
 				}
 			]);
 		}, 1000);
 	}
 
 	ngOnDestroy(): void {
-		if (this.timeout) clearTimeout(this.timeout);
+		if (this.mainTimer) clearTimeout(this.mainTimer);
+		if (this.graphTimer) clearInterval(this.graphTimer);
 	}
 
 	callMainData() {
@@ -74,25 +77,14 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 					this.syncMainDataLastResponseId = body.rid;
 
 					//this.callMainData();
-					this.timeout = setTimeout(() => {
+					this.mainTimer = setTimeout(() => {
 						this.callMainData();
 					}, 1000);
 				}
 			});
 	}
 
-	removeFilter(oldState: string, newState: string, key: string) {}
-
-	handleStatusSelect(key: string) {
-		this.selectedStatus = key;
-	}
-
-	handleTagSelect(key: string) {
-		this.selectedTag = key;
-	}
-
-	handleTrackerSelect(key: string) {
-		console.log(key);
-		this.selectedTracker = key;
+	handleSelectFilter(filter: 'Status' | 'Category' | 'Tag' | 'Tracker', key: string) {
+		this[filter] = key;
 	}
 }
