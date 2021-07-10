@@ -13,21 +13,16 @@ export class HttpService {
 		let url = environment.url + args.url;
 		delete args.url;
 
-		let params: string[] = [];
+		// let params: string[] = [];
+		let params = new HttpParams();
 		Object.entries(args).forEach(([ key, value ]) => {
-			params.push(`${key}=${encodeURIComponent(value)}`);
+			// params.push(`${key}=${encodeURIComponent(value)}`);
+			params = params.append(key, encodeURIComponent(value));
 		});
-
-		// if (!options.cache) {
-		// 	params.push(new Date().getTime());
-		// }
-
-		if (params.length > 0) {
-			url += `?${params.join('&')}`;
-		}
 
 		return this.http
 			.get<T>(url, {
+				params,
 				responseType: 'json',
 				observe: 'response',
 				withCredentials: true

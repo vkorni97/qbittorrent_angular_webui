@@ -1,10 +1,11 @@
 <div class="pageContainer">
   <div class="filterPanel">
     <div class="chartContainer">
-      <apx-chart [annotations]="chartOptions.annotations" [grid]="chartOptions.grid" [tooltip]="chartOptions.tooltip"
-        [dataLabels]="chartOptions.dataLabels" [stroke]="chartOptions.stroke" [fill]="chartOptions.fill"
-        [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-        [yaxis]="chartOptions.yaxis" [title]="chartOptions.title">
+      <apx-chart #chart [annotations]="chartOptions.annotations" [grid]="chartOptions.grid"
+        [tooltip]="chartOptions.tooltip" [dataLabels]="chartOptions.dataLabels" [stroke]="chartOptions.stroke"
+        [fill]="chartOptions.fill" [series]="chartOptions.series" [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis" [title]="chartOptions.title"
+        [legend]="chartOptions.legend">
       </apx-chart>
     </div>
     <app-collapse-menu [title]="'BY STATUS'">

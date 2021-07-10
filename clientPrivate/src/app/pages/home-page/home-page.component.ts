@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ChartOptions } from 'src/app/interfaces/data';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChartComponent } from 'ng-apexcharts';
 import { MainDataRes } from 'src/app/interfaces/http';
 import { Torrents } from 'src/app/modules/torrents.module';
 import { HttpService } from 'src/app/services/http.service';
+import { chartOptions } from '../../_helper/config';
 
 @Component({
 	selector: 'app-home-page',
 	templateUrl: './home-page.component.html',
 	styleUrls: [ './home-page.component.scss' ]
 })
-export class HomePageComponent implements OnInit, OnDestroy {
+export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 	private syncMainDataLastResponseId: number = 0;
 	private timeout: any;
 
@@ -19,54 +20,34 @@ export class HomePageComponent implements OnInit, OnDestroy {
 	public selectedTag: string = 'all';
 	public selectedTracker: string = 'all';
 
-	public chartOptions: ChartOptions = {
-		annotations: {},
-		chart: {
-			height: 200,
-			type: 'area',
-			toolbar: { show: false },
-			selection: { enabled: false }
-		},
-		colors: [],
-		dataLabels: { enabled: false },
-		labels: [],
-		legend: {},
-		fill: {
-			type: 'gradient',
-			gradient: {
-				shadeIntensity: 0,
-				opacityFrom: 0.8,
-				opacityTo: 0,
-				stops: [ 0, 100 ]
-			}
-		},
-		tooltip: { enabled: false },
-		plotOptions: {},
-		responsive: [],
-		states: {},
-		subtitle: {},
-		theme: {},
-		grid: { borderColor: 'transparent' },
-		stroke: { curve: 'smooth' },
-		series: [
-			{
-				name: 'asd',
-				data: [ 10, 41, 35, 51, 49, 62, 69, 91, 148 ]
-			}
-		],
-		title: {},
-		xaxis: {
-			labels: { show: false },
-			axisBorder: { show: false },
-			axisTicks: { show: false },
-			categories: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep' ]
-		},
-		yaxis: { labels: { show: false } }
-	};
+	@ViewChild('chart') chart: ChartComponent;
+	public chartOptions = chartOptions;
 
 	constructor(private http: HttpService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.callMainData();
+	}
+
+	ngAfterViewInit() {
+		let data1: number[] = new Array(10).fill(0);
+		let data2: number[] = new Array(10).fill(0);
+
+		setInterval(() => {
+			data1.push(this.torrents.uploadSpeed);
+			data2.push(this.torrents.downloadSpeed);
+			this.chart.updateSeries([
+				{
+					name: 'Download',
+					data: data2
+				},
+				{
+					name: 'Upload',
+					data: data1
+				}
+			]);
+		}, 1000);
+	}
 
 	ngOnDestroy(): void {
 		if (this.timeout) clearTimeout(this.timeout);

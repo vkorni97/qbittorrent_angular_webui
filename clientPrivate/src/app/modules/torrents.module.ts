@@ -1,4 +1,3 @@
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { States, Status, TorrentInfo, Tracker } from '../interfaces/data';
 
 export class Torrents {
