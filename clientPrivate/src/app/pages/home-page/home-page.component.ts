@@ -5,6 +5,7 @@ import { ServerState, TorrentInfo } from 'src/app/interfaces/data';
 import { MainDataRes } from 'src/app/interfaces/http';
 import { Torrents } from 'src/app/modules/torrents.module';
 import { HttpService } from 'src/app/services/http.service';
+import { sort } from 'src/app/_helper/variables';
 import { chartOptions } from '../../_helper/chartConfig';
 
 @Component({
@@ -31,16 +32,6 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 	constructor(private http: HttpService) {}
 
 	sortByState(a: KeyValue<string, TorrentInfo>, b: KeyValue<string, TorrentInfo>) {
-		const sort: string[] = [
-			'stalledUP',
-			'uploading',
-			'forcedUP',
-			'checkingDL',
-			'pausedDL',
-			'downloading',
-			'forcedDL',
-			'metaDL'
-		];
 		const current = sort.indexOf(a.value.state); //-1
 		const next = sort.indexOf(b.value.state); //
 		if (current - next < 0) {

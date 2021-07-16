@@ -33,33 +33,33 @@
         </div>
       </div>
       <div class="row">
-        <div class="row" title="Downloaded">
+        <div class="row flexMax" title="Downloaded">
           <mat-icon>south</mat-icon>
           <div class="text" [innerHtml]="item.downloaded|convertUnit"></div>
         </div>
-        <div class="row margin" title="Remaining">
+        <div class="row flexMax margin" title="Remaining">
           <mat-icon>downloading</mat-icon>
           <div class="text" [innerHtml]="item.amount_left|convertUnit"></div>
         </div>
-        <div class="row margin" title="Size">
+        <div class="row flexMax margin" title="Size">
           <mat-icon>donut_large</mat-icon>
           <div class="text" [innerHtml]="item.size|convertUnit"></div>
         </div>
-        <div class="row margin" title="Uploaded">
+        <div class="row flexMax margin" title="Uploaded">
           <mat-icon>north</mat-icon>
           <div class="text" [innerHtml]="item.uploaded|convertUnit"></div>
         </div>
-        <div class="row margin" title="Ratio">
+        <div class="row flexMax margin" title="Ratio">
           <mat-icon>incomplete_circle</mat-icon>
           <div class="text">{{item.ratio|number:'1.2-2'}}</div>
         </div>
-        <div class="row margin" title="Peer">
-          <mat-icon>connect_without_contact</mat-icon>
-          <div class="text">{{item.num_leechs}} ({{item.num_complete}})</div>
-        </div>
-        <div class="row" title="Seed">
+        <div class="row flexMax margin" title="Seed">
           <mat-icon>settings_input_antenna</mat-icon>
-          <div class="text">{{item.num_seeds}} ({{item.num_incomplete}})</div>
+          <div class="text">{{item.num_seeds}} ({{item.num_complete}})</div>
+        </div>
+        <div class="row flexMax" title="Peer">
+          <mat-icon>connect_without_contact</mat-icon>
+          <div class="text">{{item.num_leechs}} ({{item.num_incomplete}})</div>
         </div>
       </div>
       <div class="row">

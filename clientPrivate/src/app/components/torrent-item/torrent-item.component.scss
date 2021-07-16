@@ -20,8 +20,9 @@
 		}
 	}
 
-	.flex-1 {
+	.flexMax {
 		flex: 1;
+		max-width: 130px;
 	}
 
 	.col {
@@ -33,6 +34,16 @@
 
 	.row {
 		display: flex;
+		align-items: center;
+
+		mat-icon {
+			font-size: 20px;
+			margin-right: 5px;
+		}
+
+		.text {
+			display: flex;
+		}
 
 		.name {
 			flex: 1;
@@ -81,5 +92,5 @@
 }
 
 .margin {
-	margin: 0 20px;
+	margin: 0 5px;
 }
