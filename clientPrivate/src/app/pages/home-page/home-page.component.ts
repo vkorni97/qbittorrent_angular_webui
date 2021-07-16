@@ -1,6 +1,7 @@
+import { KeyValue } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
-import { ServerState } from 'src/app/interfaces/data';
+import { ServerState, TorrentInfo } from 'src/app/interfaces/data';
 import { MainDataRes } from 'src/app/interfaces/http';
 import { Torrents } from 'src/app/modules/torrents.module';
 import { HttpService } from 'src/app/services/http.service';
@@ -29,8 +30,37 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	constructor(private http: HttpService) {}
 
+	sortByState(a: KeyValue<string, TorrentInfo>, b: KeyValue<string, TorrentInfo>) {
+		const sort: string[] = [
+			'stalledUP',
+			'uploading',
+			'forcedUP',
+			'checkingDL',
+			'pausedDL',
+			'downloading',
+			'forcedDL',
+			'metaDL'
+		];
+		const current = sort.indexOf(a.value.state); //-1
+		const next = sort.indexOf(b.value.state); //
+		if (current - next < 0) {
+			return 1;
+		} else if (current - next == 0) {
+			return a.value.name.localeCompare(b.value.name);
+		} else return -1;
+	}
+
 	ngOnInit(): void {
 		this.callMainData();
+	}
+
+	get selectedFilters() {
+		return {
+			status: this.Status,
+			tag: this.Tag,
+			tracker: this.Tracker,
+			category: this.Category
+		};
 	}
 
 	ngAfterViewInit() {

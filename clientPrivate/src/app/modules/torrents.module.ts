@@ -1,7 +1,8 @@
+import { stringify } from '@angular/compiler/src/util';
 import { States, Status, TorrentInfo, Tracker } from '../interfaces/data';
 
 export class Torrents {
-	private torrents: { [key: string]: TorrentInfo } = {};
+	public torrents: { [key: string]: TorrentInfo } = {};
 	private torrentsLength: number = 0;
 
 	public status: Status = {
@@ -22,8 +23,23 @@ export class Torrents {
 	get length(): number {
 		return this.torrentsLength;
 	}
+	get getTorrent(): { [key: string]: TorrentInfo } {
+		return this.torrents;
+	}
+	get getTorrentKeys() {
+		return Object.keys(this.torrents);
+	}
+	get Filters() {
+		return {
+			status: this.status,
+			tag: this.tag,
+			tracker: this.tracker,
+			category: this.category
+		};
+	}
 
 	modifyTorrent(torrents?: { [key: string]: TorrentInfo }) {
+		let stateChanged: boolean = false;
 		for (const key in torrents) {
 			if (!this.torrents[key]) {
 				this.torrents[key] = torrents[key];
@@ -33,10 +49,12 @@ export class Torrents {
 				if (torrents[key].state) {
 					this.setFilters(this.torrents[key].state, key, true);
 					this.setFilters(torrents[key].state, key);
+					stateChanged = true;
 				}
 				Object.assign(this.torrents[key], torrents[key]);
 			}
 		}
+		if (stateChanged) this.torrents = JSON.parse(JSON.stringify(this.torrents));
 	}
 
 	removeTorrent(torrents: string[]) {

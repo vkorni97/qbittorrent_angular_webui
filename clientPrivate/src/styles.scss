@@ -56,3 +56,8 @@ body {
 		background-color: rgba($color: var(--color1), $alpha: .2);
 	}
 }
+
+mat-icon {
+	height: auto !important;
+	width: auto !important;
+}

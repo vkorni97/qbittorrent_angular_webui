@@ -12,9 +12,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { RssPageComponent } from './pages/rss-page/rss-page.component';
 import { CollapseMenuComponent } from './components/collapse-menu/collapse-menu.component';
 import { MenuItemComponent } from './components/collapse-menu/menu-item/menu-item.component';
-import { CountTagPipe } from './pipes/count-tag.pipe';
 import { ConvertUnitPipe } from './pipes/convert-unit.pipe';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { FilterPipe } from './pipes/filter.pipe';
+import { TorrentItemComponent } from './components/torrent-item/torrent-item.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 @NgModule({
 	declarations: [
@@ -24,8 +26,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 		RssPageComponent,
 		CollapseMenuComponent,
 		MenuItemComponent,
-		CountTagPipe,
-		ConvertUnitPipe
+		ConvertUnitPipe,
+  FilterPipe,
+  TorrentItemComponent,
+  ProgressBarComponent
 	],
 	imports: [
 		BrowserModule,

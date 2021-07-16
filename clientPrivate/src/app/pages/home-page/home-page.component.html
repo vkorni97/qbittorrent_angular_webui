@@ -69,6 +69,12 @@
       </app-menu-item>
     </app-collapse-menu>
   </div>
+
   <div class="downloadPanel">
+    <div class="torrentContainer">
+      <app-torrent-item *ngFor="let item of torrents.torrents|keyvalue:sortByState" [item]="item.value"
+        [key]="item.key">
+      </app-torrent-item>
+    </div>
   </div>
 </div>
