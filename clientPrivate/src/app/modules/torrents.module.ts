@@ -62,7 +62,6 @@ export class Torrents {
 			this.setFilters(this.torrents[torrents[i]].state, torrents[i], true);
 			delete this.torrents[torrents[i]];
 			this.torrentsLength -= 1;
-			// this.torrents = { ...this.torrents };
 		}
 	}
 
