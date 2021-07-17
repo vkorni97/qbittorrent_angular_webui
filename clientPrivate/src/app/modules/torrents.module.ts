@@ -54,7 +54,7 @@ export class Torrents {
 				Object.assign(this.torrents[key], torrents[key]);
 			}
 		}
-		if (stateChanged) this.torrents = JSON.parse(JSON.stringify(this.torrents));
+		//	if (stateChanged) this.torrents = JSON.parse(JSON.stringify(this.torrents));
 	}
 
 	removeTorrent(torrents: string[]) {

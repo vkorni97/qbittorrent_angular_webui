@@ -55,8 +55,8 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		let data1: number[] = new Array();
-		let data2: number[] = new Array();
+		let data1: number[] = new Array(21).fill(0);
+		let data2: number[] = new Array(21).fill(0);
 
 		this.graphTimer = setInterval(() => {
 			data1.push(this.server_state.up_info_speed || 0);
@@ -83,7 +83,7 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	callMainData() {
 		this.http
-			.get<MainDataRes>({ url: 'api/v2/sync/maindata', rid: this.syncMainDataLastResponseId }, { cache: false })
+			.get<MainDataRes>({ url: 'api/v2/sync/maindata', rid: this.syncMainDataLastResponseId })
 			.then((res) => {
 				if (res && res.body) {
 					let { body } = res;
@@ -102,6 +102,11 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 						this.callMainData();
 					}, 1000);
 				}
+			})
+			.catch(() => {
+				this.mainTimer = setTimeout(() => {
+					this.callMainData();
+				}, 5000);
 			});
 	}
 

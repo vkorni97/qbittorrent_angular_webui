@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { FilterPipe } from './pipes/filter.pipe';
 import { TorrentItemComponent } from './components/torrent-item/torrent-item.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { TorrentItemContextComponent } from './components/context/torrent-item-context/torrent-item-context.component';
+import { TorrentItemContextDirective } from './directives/torrent-item-context.directive';
 
 @NgModule({
 	declarations: [
@@ -27,9 +31,11 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 		CollapseMenuComponent,
 		MenuItemComponent,
 		ConvertUnitPipe,
-  FilterPipe,
-  TorrentItemComponent,
-  ProgressBarComponent
+		FilterPipe,
+		TorrentItemComponent,
+		ProgressBarComponent,
+		TorrentItemContextComponent,
+		TorrentItemContextDirective
 	],
 	imports: [
 		BrowserModule,
@@ -39,7 +45,9 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 		ReactiveFormsModule,
 		FormsModule,
 		MatIconModule,
-		NgApexchartsModule
+		NgApexchartsModule,
+		OverlayModule,
+		ScrollingModule
 	],
 	providers: [],
 	bootstrap: [ AppComponent ]

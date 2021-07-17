@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpOptions, MainDataArgs } from '../interfaces/http';
+import { MainDataArgs } from '../interfaces/http';
 
 @Injectable({
 	providedIn: 'root'
@@ -9,14 +9,12 @@ import { HttpOptions, MainDataArgs } from '../interfaces/http';
 export class HttpService {
 	constructor(private http: HttpClient) {}
 
-	get<T>(args: MainDataArgs, options: HttpOptions = {}): Promise<HttpResponse<T>> {
+	get<T>(args: MainDataArgs): Promise<HttpResponse<T>> {
 		let url = environment.url + args.url;
 		delete args.url;
 
-		// let params: string[] = [];
 		let params = new HttpParams();
 		Object.entries(args).forEach(([ key, value ]) => {
-			// params.push(`${key}=${encodeURIComponent(value)}`);
 			params = params.append(key, encodeURIComponent(value));
 		});
 
@@ -30,7 +28,7 @@ export class HttpService {
 			.toPromise();
 	}
 
-	post(args: any, options: HttpOptions = {}): Promise<HttpResponse<string>> {
+	post(args: any): Promise<HttpResponse<string>> {
 		const url = args.url;
 		delete args.url;
 

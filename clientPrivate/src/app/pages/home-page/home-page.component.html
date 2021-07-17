@@ -71,10 +71,12 @@
   </div>
 
   <div class="downloadPanel">
-    <div class="torrentContainer">
-      <app-torrent-item *ngFor="let item of torrents.torrents|keyvalue:sortByState" [item]="item.value"
+
+    <cdk-virtual-scroll-viewport [itemSize]="70" class="torrentContainer">
+      <app-torrent-item *cdkVirtualFor="let item of torrents.torrents|keyvalue:sortByState" [item]="item.value"
         [key]="item.key">
       </app-torrent-item>
-    </div>
+    </cdk-virtual-scroll-viewport>
+
   </div>
 </div>

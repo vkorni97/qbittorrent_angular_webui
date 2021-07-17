@@ -1,9 +1,5 @@
 import { ServerState, TorrentInfo } from './data';
 
-export interface HttpOptions {
-	cache?: boolean;
-}
-
 export interface MainDataArgs {
 	url?: 'api/v2/sync/maindata';
 	rid: number;
