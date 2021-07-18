@@ -103,6 +103,10 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
           if (body.torrents) this.torrents.modifyTorrent(body.torrents);
           if (body.torrents_removed)
             this.torrents.removeTorrent(body.torrents_removed);
+          if (body.categories)
+            this.torrents.addToMenu(body.categories, 'Category');
+          if (body.categories_removed)
+            this.torrents.removeFromMenu(body.categories_removed, 'Category');
           if (body.trackers) this.torrents.addToMenu(body.trackers, 'Tracker');
           if (body.trackers_removed)
             this.torrents.removeFromMenu(body.trackers_removed, 'Tracker');

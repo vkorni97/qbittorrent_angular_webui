@@ -53,6 +53,11 @@
         [selected]="selectedFilters.Category == 'uncategorized'" [text]="'Uncategorized'">
         <!-- {{torrents.length}} -->
       </app-menu-item>
+      <!-- <app-menu-item *ngFor="let item of torrents.filters.Category|keyvalue; let c = count"
+        (click)="handleSelectFilter('Category',item.key)" [selected]="selectedFilters.Category == item.key"
+        [text]="item.key">
+        {{item.value.length}}
+      </app-menu-item> -->
     </app-collapse-menu>
     <app-collapse-menu [title]="'BY TAG'">
       <app-menu-item (click)="handleSelectFilter('Tag','all')" [selected]="selectedFilters.Tag == 'all'" [text]="'All'">

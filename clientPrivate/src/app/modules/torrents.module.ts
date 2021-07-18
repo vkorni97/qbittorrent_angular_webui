@@ -1,11 +1,6 @@
 import { stringify } from '@angular/compiler/src/util';
-import {
-  Filters,
-  States,
-  Status,
-  TorrentInfo,
-  Tracker,
-} from '../interfaces/data';
+import { Filters, TorrentInfo } from '../interfaces/data';
+import { stateFilters } from '../_helper/variables';
 
 export class Torrents {
   private torrents: { [key: string]: TorrentInfo } = {};
@@ -67,7 +62,7 @@ export class Torrents {
   }
 
   addToMenu(
-    items: { [key: string]: string[] } | string[],
+    items: { [key: string]: any } | string[],
     type: 'Category' | 'Tag' | 'Tracker'
   ) {
     if (Array.isArray(items)) {
@@ -83,79 +78,16 @@ export class Torrents {
   }
 
   setFilters(state: string, key: string, remove: boolean = false) {
-    switch (state) {
-      case States.DOWNLOADING:
-      case States.FORCED_DOWNLOAD:
-        if (remove)
-          this.filters.Status['downloading'] = this.filters.Status[
-            'downloading'
-          ].filter((v) => v != key);
-        else this.filters.Status['downloading'].push(key);
-        break;
-      default:
-        break;
-    }
-
-    switch (state) {
-      case States.UPLOADING:
-      case States.FORCED_UPLOAD:
-      case States.PAUSED_UPLOAD:
-      case States.QUEUED_UPLOAD:
-      case States.STALLED_UPLOAD:
-      case States.CHECKING_UPLOAD:
-        if (remove)
-          this.filters.Status['complete'] = this.filters.Status[
-            'complete'
-          ].filter((v) => v != key);
-        else this.filters.Status['complete'].push(key);
-        break;
-      default:
-        break;
-    }
-
-    switch (state) {
-      case States.PAUSED_DOWNLOAD:
-      case States.PAUSED_UPLOAD:
-        if (remove)
-          this.filters.Status['stopped'] = this.filters.Status[
-            'stopped'
-          ].filter((v) => v != key);
-        else this.filters.Status['stopped'].push(key);
-        break;
-      default:
-        break;
-    }
-
-    switch (state) {
-      case States.DOWNLOADING:
-      case States.FORCED_DOWNLOAD:
-      case States.UPLOADING:
-      case States.FORCED_UPLOAD:
-        if (remove)
-          this.filters.Status['active'] = this.filters.Status['active'].filter(
-            (v) => v != key
-          );
-        else this.filters.Status['active'].push(key);
-        break;
-      default:
-        break;
-    }
-
-    switch (state) {
-      case States.PAUSED_DOWNLOAD:
-      case States.PAUSED_UPLOAD:
-      case States.STALLED_DOWNLOAD:
-      case States.STALLED_UPLOAD:
-      case States.MISSING_FILES:
-      case States.ERROR:
-        if (remove)
-          this.filters.Status['inactive'] = this.filters.Status[
-            'inactive'
-          ].filter((v) => v != key);
-        else this.filters.Status['inactive'].push(key);
-        break;
-      default:
-        break;
-    }
+    (Object.keys(stateFilters) as Array<keyof typeof stateFilters>).forEach(
+      (x) => {
+        if (stateFilters[x].includes(state)) {
+          if (remove)
+            this.filters.Status[x] = this.filters.Status[x].filter(
+              (v) => v != key
+            );
+          else this.filters.Status[x].push(key);
+        }
+      }
+    );
   }
 }
