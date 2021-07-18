@@ -4,18 +4,18 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { RssPageComponent } from './pages/rss-page/rss-page.component';
 
 const routes: Routes = [
-	{
-		path: '',
-		component: HomePageComponent
-	},
-	{
-		path: 'rss',
-		component: RssPageComponent
-	}
+  {
+    path: '',
+    component: HomePageComponent,
+  },
+  {
+    path: 'rss',
+    component: RssPageComponent,
+  },
 ];
 
 @NgModule({
-	imports: [ RouterModule.forRoot(routes) ],
-	exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

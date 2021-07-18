@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-menu-item',
-	templateUrl: './menu-item.component.html',
-	styleUrls: [ './menu-item.component.scss' ]
+  selector: 'app-menu-item',
+  templateUrl: './menu-item.component.html',
+  styleUrls: ['./menu-item.component.scss'],
 })
 export class MenuItemComponent implements OnInit {
-	@Input() icon: string;
-	@Input() text: string;
-	@Input() selected: boolean;
+  @Input() icon: string;
+  @Input() text: string;
+  @Input() selected: boolean;
 
-	constructor() {}
+  constructor() {}
 
-	ngOnInit(): void {}
+  ngOnInit(): void {}
 }

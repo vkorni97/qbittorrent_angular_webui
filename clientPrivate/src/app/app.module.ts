@@ -23,33 +23,33 @@ import { TorrentItemContextComponent } from './components/context/torrent-item-c
 import { TorrentItemContextDirective } from './directives/torrent-item-context.directive';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		HomePageComponent,
-		HeaderComponent,
-		RssPageComponent,
-		CollapseMenuComponent,
-		MenuItemComponent,
-		ConvertUnitPipe,
-		FilterPipe,
-		TorrentItemComponent,
-		ProgressBarComponent,
-		TorrentItemContextComponent,
-		TorrentItemContextDirective
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		HttpClientModule,
-		ReactiveFormsModule,
-		FormsModule,
-		MatIconModule,
-		NgApexchartsModule,
-		OverlayModule,
-		ScrollingModule
-	],
-	providers: [],
-	bootstrap: [ AppComponent ]
+  declarations: [
+    AppComponent,
+    HomePageComponent,
+    HeaderComponent,
+    RssPageComponent,
+    CollapseMenuComponent,
+    MenuItemComponent,
+    ConvertUnitPipe,
+    FilterPipe,
+    TorrentItemComponent,
+    ProgressBarComponent,
+    TorrentItemContextComponent,
+    TorrentItemContextDirective,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconModule,
+    NgApexchartsModule,
+    OverlayModule,
+    ScrollingModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,2 +1,1 @@
-export interface Modal {
-}
+export interface Modal {}
