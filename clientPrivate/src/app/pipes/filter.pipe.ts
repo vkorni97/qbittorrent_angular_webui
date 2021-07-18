@@ -1,39 +1,29 @@
+import { KeyValue } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Status, TorrentInfo, Tracker } from '../interfaces/data';
-
-interface Torrents {
-  [key: string]: TorrentInfo;
-}
-interface SelectedFilters {
-  status: string;
-  category: string;
-  tag: string;
-  tracker: string;
-}
-interface Filters {
-  status: Status; //& { all: string[] };
-  category: any;
-  tag: string[];
-  tracker: Tracker;
-}
+import {
+  Filters,
+  SelectedFilters,
+  Status,
+  TorrentInfo,
+  Tracker,
+} from '../interfaces/data';
 
 @Pipe({
   name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
   transform(
-    torrents: Torrents,
+    torrents: KeyValue<string, TorrentInfo>[],
     selectedFilters: SelectedFilters,
     filters: Filters
-  ): TorrentInfo[] {
-    return [];
-    // console.log('asd');
-    // return Object.entries(torrents)
-    // 	.filter(([ key, value ]) => {
-    // 		return (Object.keys(selectedFilters) as Array<keyof SelectedFilters>).every((filter) => {
-    // 			return (filters[filter][key] && filters[filter][key]) || selectedFilters[filter] == 'all';
-    // 		});
-    // 	})
-    // 	.map((v) => v[1]);
+  ): KeyValue<string, TorrentInfo>[] {
+    return torrents.filter((v) => {
+      return (
+        Object.keys(selectedFilters) as Array<keyof SelectedFilters>
+      ).every((filter) => {
+        if (selectedFilters[filter] == 'all') return true;
+        return filters[filter][selectedFilters[filter]].includes(v.key);
+      });
+    });
   }
 }

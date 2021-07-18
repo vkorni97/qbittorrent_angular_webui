@@ -25,58 +25,64 @@
       </apx-chart>
     </div>
     <app-collapse-menu [title]="'BY STATUS'">
-      <app-menu-item (click)="handleSelectFilter('Status','all')" [selected]="Status == 'all'" [icon]="'select_all'"
-        [text]="'All'">{{torrents.length}}
+      <app-menu-item (click)="handleSelectFilter('Status','all')" [selected]="selectedFilters.Status == 'all'"
+        [icon]="'select_all'" [text]="'All'">{{torrents.length}}
       </app-menu-item>
-      <app-menu-item (click)="handleSelectFilter('Status','downloading')" [selected]="Status == 'downloading'"
-        [icon]="'downloading'" [text]="'Downloading'">
-        {{torrents.status['downloading'].length}}</app-menu-item>
-      <app-menu-item (click)="handleSelectFilter('Status','complete')" [selected]="Status == 'complete'"
+      <app-menu-item (click)="handleSelectFilter('Status','downloading')"
+        [selected]="selectedFilters.Status == 'downloading'" [icon]="'downloading'" [text]="'Downloading'">
+        {{torrents.filters.Status['downloading'].length}}</app-menu-item>
+      <app-menu-item (click)="handleSelectFilter('Status','complete')" [selected]="selectedFilters.Status == 'complete'"
         [icon]="'done_all'" [text]="'Complete'">
-        {{torrents.status['complete'].length}}</app-menu-item>
-      <app-menu-item (click)="handleSelectFilter('Status','stopped')" [selected]="Status == 'stopped'" [icon]="'stop'"
-        [text]="'Stopped'">
-        {{torrents.status['stopped'].length}}</app-menu-item>
-      <app-menu-item (click)="handleSelectFilter('Status','active')" [selected]="Status == 'active'"
+        {{torrents.filters.Status['complete'].length}}</app-menu-item>
+      <app-menu-item (click)="handleSelectFilter('Status','stopped')" [selected]="selectedFilters.Status == 'stopped'"
+        [icon]="'stop'" [text]="'Stopped'">
+        {{torrents.filters.Status['stopped'].length}}</app-menu-item>
+      <app-menu-item (click)="handleSelectFilter('Status','active')" [selected]="selectedFilters.Status == 'active'"
         [icon]="'import_export'" [text]="'Active'">
-        {{torrents.status['active'].length}}</app-menu-item>
-      <app-menu-item (click)="handleSelectFilter('Status','inactive')" [selected]="Status == 'inactive'"
+        {{torrents.filters.Status['active'].length}}</app-menu-item>
+      <app-menu-item (click)="handleSelectFilter('Status','inactive')" [selected]="selectedFilters.Status == 'inactive'"
         [icon]="'mobiledata_off'" [text]="'Inactive'">
-        {{torrents.status['inactive'].length}}</app-menu-item>
+        {{torrents.filters.Status['inactive'].length}}</app-menu-item>
     </app-collapse-menu>
     <app-collapse-menu [title]="'BY CATEGORY'">
-      <app-menu-item (click)="handleSelectFilter('Category','all')" [selected]="Category == 'all'" [text]="'All'">
+      <app-menu-item (click)="handleSelectFilter('Category','all')" [selected]="selectedFilters.Category == 'all'"
+        [text]="'All'">
         {{torrents.length}}
       </app-menu-item>
-      <app-menu-item (click)="handleSelectFilter('Category','uncategorized')" [selected]="Category == 'uncategorized'"
-        [text]="'Uncategorized'">
+      <app-menu-item (click)="handleSelectFilter('Category','uncategorized')"
+        [selected]="selectedFilters.Category == 'uncategorized'" [text]="'Uncategorized'">
         <!-- {{torrents.length}} -->
       </app-menu-item>
     </app-collapse-menu>
     <app-collapse-menu [title]="'BY TAG'">
-      <app-menu-item (click)="handleSelectFilter('Tag','all')" [selected]="Tag == 'all'" [text]="'All'">
+      <app-menu-item (click)="handleSelectFilter('Tag','all')" [selected]="selectedFilters.Tag == 'all'" [text]="'All'">
         {{torrents.length}}</app-menu-item>
-      <app-menu-item *ngFor="let item of torrents.tag" (click)="handleSelectFilter('Tag',item)" [selected]="Tag == item"
-        [text]="item">
+      <app-menu-item *ngFor="let item of torrents.filters.Tag" (click)="handleSelectFilter('Tag',item)"
+        [selected]="selectedFilters.Tag == item" [text]="item">
       </app-menu-item>
     </app-collapse-menu>
     <app-collapse-menu [title]="'BY TRACKER'">
-      <app-menu-item (click)="handleSelectFilter('Tracker','all')" [selected]="Tracker == 'all'" [text]="'All'">
+      <app-menu-item (click)="handleSelectFilter('Tracker','all')" [selected]="selectedFilters.Tracker == 'all'"
+        [text]="'All'">
         {{torrents.length}}</app-menu-item>
-      <app-menu-item *ngFor="let item of torrents.tracker|keyvalue" (click)="handleSelectFilter('Tracker',item.key)"
-        [selected]="Tracker == item.key" [text]="item.key">
+      <app-menu-item *ngFor="let item of torrents.filters.Tracker|keyvalue"
+        (click)="handleSelectFilter('Tracker',item.key)" [selected]="selectedFilters.Tracker == item.key"
+        [text]="item.key">
         {{item.value.length}}
       </app-menu-item>
     </app-collapse-menu>
   </div>
 
   <div class="downloadPanel">
-
     <cdk-virtual-scroll-viewport [itemSize]="70" class="torrentContainer">
-      <app-torrent-item *cdkVirtualFor="let item of torrents.torrents|keyvalue:sortByState" [item]="item.value"
-        [key]="item.key">
+      <!-- <app-torrent-item
+        *cdkVirtualFor="let item of torrents.torrents|filter:selectedFilters:torrents.Filters:sortByState"
+        [item]="item.value" [key]="item.key">
+      </app-torrent-item> -->
+      <app-torrent-item
+        *cdkVirtualFor="let item of torrents.getTorrent|keyvalue:sortByState|filter:selectedFilters:torrents.filters"
+        [item]="item.value" [key]="item.key">
       </app-torrent-item>
     </cdk-virtual-scroll-viewport>
-
   </div>
 </div>

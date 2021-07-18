@@ -7,7 +7,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
-import { ServerState, TorrentInfo } from 'src/app/interfaces/data';
+import {
+  SelectedFilters,
+  ServerState,
+  Status,
+  TorrentInfo,
+  Tracker,
+} from 'src/app/interfaces/data';
 import { MainDataRes } from 'src/app/interfaces/http';
 import { Torrents } from 'src/app/modules/torrents.module';
 import { HttpService } from 'src/app/services/http.service';
@@ -27,10 +33,12 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
   public torrents: Torrents = new Torrents();
   public server_state: ServerState = {};
 
-  public Status: string = 'all';
-  public Tag: string = 'all';
-  public Tracker: string = 'all';
-  public Category: string = 'all';
+  public selectedFilters: SelectedFilters = {
+    Status: 'all',
+    Tag: 'all',
+    Tracker: 'all',
+    Category: 'all',
+  };
 
   @ViewChild('chart') chart: ChartComponent;
   public chartOptions = chartOptions;
@@ -52,15 +60,6 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.callMainData();
-  }
-
-  get selectedFilters() {
-    return {
-      status: this.Status,
-      tag: this.Tag,
-      tracker: this.Tracker,
-      category: this.Category,
-    };
   }
 
   ngAfterViewInit() {
@@ -104,12 +103,12 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
           if (body.torrents) this.torrents.modifyTorrent(body.torrents);
           if (body.torrents_removed)
             this.torrents.removeTorrent(body.torrents_removed);
-          if (body.trackers) this.torrents.addToMenu(body.trackers, 'tracker');
+          if (body.trackers) this.torrents.addToMenu(body.trackers, 'Tracker');
           if (body.trackers_removed)
-            this.torrents.removeFromMenu(body.trackers_removed, 'tracker');
-          if (body.tags) this.torrents.addToMenu(body.tags, 'tag');
+            this.torrents.removeFromMenu(body.trackers_removed, 'Tracker');
+          if (body.tags) this.torrents.addToMenu(body.tags, 'Tag');
           if (body.tags_removed)
-            this.torrents.removeFromMenu(body.tags_removed, 'tag');
+            this.torrents.removeFromMenu(body.tags_removed, 'Tag');
 
           this.syncMainDataLastResponseId = body.rid;
 
@@ -130,6 +129,7 @@ export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
     filter: 'Status' | 'Category' | 'Tag' | 'Tracker',
     key: string
   ) {
-    this[filter] = key;
+    this.selectedFilters[filter] = key;
+    this.selectedFilters = { ...this.selectedFilters };
   }
 }

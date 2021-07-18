@@ -45,7 +45,11 @@ export interface ServerState {
   write_cache_overload?: string;
 }
 
-export interface TorrentInfo {
+export interface CustomInfo {
+  selected?: boolean;
+}
+
+export interface TorrentInfo extends CustomInfo {
   added_on: number;
   amount_left: number;
   auto_tmm: false;
@@ -153,4 +157,18 @@ export interface ChartOptions {
 export interface Transfer {
   currentSpeed: number;
   transferred: number;
+}
+
+export interface Filters {
+  Status: Status; // & { all: string[] };
+  Category: any;
+  Tag: string[];
+  Tracker: Tracker;
+}
+
+export interface SelectedFilters {
+  Status: string;
+  Category: string;
+  Tag: string;
+  Tracker: string;
 }

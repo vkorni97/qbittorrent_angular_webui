@@ -1,20 +1,28 @@
 import { stringify } from '@angular/compiler/src/util';
-import { States, Status, TorrentInfo, Tracker } from '../interfaces/data';
+import {
+  Filters,
+  States,
+  Status,
+  TorrentInfo,
+  Tracker,
+} from '../interfaces/data';
 
 export class Torrents {
-  public torrents: { [key: string]: TorrentInfo } = {};
+  private torrents: { [key: string]: TorrentInfo } = {};
   private torrentsLength: number = 0;
 
-  public status: Status = {
-    downloading: [],
-    complete: [],
-    stopped: [],
-    active: [],
-    inactive: [],
+  public filters: Filters = {
+    Status: {
+      downloading: [],
+      complete: [],
+      stopped: [],
+      active: [],
+      inactive: [],
+    },
+    Tag: [],
+    Tracker: {},
+    Category: {},
   };
-  public tag: string[] = [];
-  public tracker: Tracker = {};
-  public category: any = {};
 
   constructor(torrents?: { [key: string]: TorrentInfo }) {
     this.modifyTorrent(torrents);
@@ -28,14 +36,6 @@ export class Torrents {
   }
   get getTorrentKeys() {
     return Object.keys(this.torrents);
-  }
-  get Filters() {
-    return {
-      status: this.status,
-      tag: this.tag,
-      tracker: this.tracker,
-      category: this.category,
-    };
   }
 
   modifyTorrent(torrents?: { [key: string]: TorrentInfo }) {
@@ -68,17 +68,17 @@ export class Torrents {
 
   addToMenu(
     items: { [key: string]: string[] } | string[],
-    type: 'category' | 'tag' | 'tracker'
+    type: 'Category' | 'Tag' | 'Tracker'
   ) {
     if (Array.isArray(items)) {
-      this[type] = items;
+      this.filters[type] = items;
     } else {
-      Object.assign(this[type], items);
+      Object.assign(this.filters[type], items);
     }
   }
-  removeFromMenu(items: string[], type: 'category' | 'tag' | 'tracker') {
+  removeFromMenu(items: string[], type: 'Category' | 'Tag' | 'Tracker') {
     for (let i = 0; i < items.length; i++) {
-      delete this[type][items[i]];
+      delete this.filters[type][items[i]];
     }
   }
 
@@ -87,10 +87,10 @@ export class Torrents {
       case States.DOWNLOADING:
       case States.FORCED_DOWNLOAD:
         if (remove)
-          this.status['downloading'] = this.status['downloading'].filter(
-            (v) => v != key
-          );
-        else this.status['downloading'].push(key);
+          this.filters.Status['downloading'] = this.filters.Status[
+            'downloading'
+          ].filter((v) => v != key);
+        else this.filters.Status['downloading'].push(key);
         break;
       default:
         break;
@@ -104,10 +104,10 @@ export class Torrents {
       case States.STALLED_UPLOAD:
       case States.CHECKING_UPLOAD:
         if (remove)
-          this.status['complete'] = this.status['complete'].filter(
-            (v) => v != key
-          );
-        else this.status['complete'].push(key);
+          this.filters.Status['complete'] = this.filters.Status[
+            'complete'
+          ].filter((v) => v != key);
+        else this.filters.Status['complete'].push(key);
         break;
       default:
         break;
@@ -117,10 +117,10 @@ export class Torrents {
       case States.PAUSED_DOWNLOAD:
       case States.PAUSED_UPLOAD:
         if (remove)
-          this.status['stopped'] = this.status['stopped'].filter(
-            (v) => v != key
-          );
-        else this.status['stopped'].push(key);
+          this.filters.Status['stopped'] = this.filters.Status[
+            'stopped'
+          ].filter((v) => v != key);
+        else this.filters.Status['stopped'].push(key);
         break;
       default:
         break;
@@ -132,8 +132,10 @@ export class Torrents {
       case States.UPLOADING:
       case States.FORCED_UPLOAD:
         if (remove)
-          this.status['active'] = this.status['active'].filter((v) => v != key);
-        else this.status['active'].push(key);
+          this.filters.Status['active'] = this.filters.Status['active'].filter(
+            (v) => v != key
+          );
+        else this.filters.Status['active'].push(key);
         break;
       default:
         break;
@@ -147,10 +149,10 @@ export class Torrents {
       case States.MISSING_FILES:
       case States.ERROR:
         if (remove)
-          this.status['inactive'] = this.status['inactive'].filter(
-            (v) => v != key
-          );
-        else this.status['inactive'].push(key);
+          this.filters.Status['inactive'] = this.filters.Status[
+            'inactive'
+          ].filter((v) => v != key);
+        else this.filters.Status['inactive'].push(key);
         break;
       default:
         break;
